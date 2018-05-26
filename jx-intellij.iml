@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="PLUGIN_MODULE" version="4">
+  <component name="DevKit.ModuleBuildProperties" url="file://$MODULE_DIR$/src/main/resources/META-INF/plugin.xml" />
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: io.jenkins-x.client:jx-java-client:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: io.fabric8:kubernetes-client:3.1.10" level="project" />
+    <orderEntry type="library" name="Maven: io.fabric8:kubernetes-model:2.0.8" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.7.5" level="project" />
+    <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.9.1" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.13.0" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:logging-interceptor:3.9.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.7.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.7.7" level="project" />
+    <orderEntry type="library" name="Maven: io.fabric8:zjsonpatch:0.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.mifmif:generex:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: dk.brics.automaton:automaton:1.11-8" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:java-api:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:java_resources_en:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:java-impl:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:openapi:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:platform-api:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:platform-impl:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:idea:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:extensions:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:annotations:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:util:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.jetbrains.plugins:yaml:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij.plugins:properties:2018.1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:imgscalr-lib-4.2:2018.1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.intellij:lz4-java-1.3:2018.1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.intellij:idea-jsp-openapi:2018.1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.intellij:jsp-api:2018.1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.intellij:jsch-0.1.54:2018.1.3" level="project" />
+  </component>
+</module>

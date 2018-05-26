@@ -18,7 +18,14 @@ public class JenkinsXTreeStructureProvider implements TreeStructureProvider {
     private PipelineTreeModel treeModel;
 
     public JenkinsXTreeStructureProvider() {
-        this.treeModel = PipelineTreeModel.newInstance();
+        System.out.println("========= starting");
+        try {
+            this.treeModel = PipelineTreeModel.newInstance();
+        } catch (Exception e) {
+            System.out.println("Failed: " + e);
+            e.printStackTrace();
+        }
+        System.out.println("========= Loaded!!");
     }
 
     @NotNull
@@ -26,6 +33,8 @@ public class JenkinsXTreeStructureProvider implements TreeStructureProvider {
     public Collection<AbstractTreeNode> modify(@NotNull AbstractTreeNode parent,
                                                @NotNull Collection<AbstractTreeNode> children,
                                                ViewSettings settings) {
+
+        System.out.println("OOH NEW TREE");
 
         ArrayList<AbstractTreeNode> nodes = new ArrayList<AbstractTreeNode>();
         for (AbstractTreeNode child : children) {
@@ -38,6 +47,7 @@ public class JenkinsXTreeStructureProvider implements TreeStructureProvider {
     }
 
     private AbstractTreeNode createPipelinesNode(Project project) {
+        System.out.println("==== adding pipelines");
         return new PipelinesNode(project, treeModel);
     }
 

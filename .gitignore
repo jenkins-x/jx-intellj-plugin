@@ -2,7 +2,6 @@ target
 out
 .idea
 .vscode
-*.iml
 *.im
 *.ipr
 *.iws
