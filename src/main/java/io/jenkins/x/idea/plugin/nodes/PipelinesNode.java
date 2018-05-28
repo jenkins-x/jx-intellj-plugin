@@ -20,11 +20,15 @@ import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import io.jenkins.x.client.tree.TreeItem;
+import io.jenkins.x.idea.plugin.IconHelper;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static io.jenkins.x.client.util.Strings.notEmpty;
 
 /**
  */
@@ -57,7 +61,14 @@ public class PipelinesNode extends AbstractTreeNode {
         TreeItem treeItem = getTreeItem();
         if (treeItem != null) {
             presentationData.setPresentableText(treeItem.getLabel());
-            presentationData.setTooltip("Jenkins X Tooltips");
+            presentationData.setTooltip(treeItem.getTooltip());
+            String iconPath = treeItem.getIconPath();
+            if (notEmpty(iconPath)) {
+                Icon icon = IconHelper.getIcon(iconPath);
+                if (icon != null) {
+                    presentationData.setIcon(icon);
+                }
+            }
         }
     }
 }
