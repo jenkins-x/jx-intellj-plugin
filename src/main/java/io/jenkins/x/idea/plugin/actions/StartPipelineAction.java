@@ -18,17 +18,7 @@ package io.jenkins.x.idea.plugin.actions;
 
 import com.intellij.execution.ExecutionException;
 import com.intellij.openapi.project.Project;
-import com.sun.corba.se.impl.activation.CommandHandler;
 import io.jenkins.x.idea.plugin.CommandHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.net.URI;
-
-import static io.jenkins.x.client.util.Strings.notEmpty;
 
 /**
  */

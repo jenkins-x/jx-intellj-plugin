@@ -58,7 +58,7 @@ public class IconHelper {
                         }
                         float scale = ((float) MAX_HEIGHT) / maxHeightOrWidth;
                         icon = imageIcon.scale(scale);
-                    } else  if (icon instanceof ImageIcon) {
+                    } else if (icon instanceof ImageIcon) {
                         ImageIcon imageIcon = (ImageIcon) icon;
                         Image scaledImage = imageIcon.getImage().getScaledInstance(MAX_WIDTH, MAX_HEIGHT, Image.SCALE_DEFAULT);
                         icon = new ImageIcon(scaledImage);

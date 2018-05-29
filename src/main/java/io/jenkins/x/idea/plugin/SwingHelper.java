@@ -16,25 +16,18 @@
  */
 package io.jenkins.x.idea.plugin;
 
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.process.OSProcessHandler;
-import com.intellij.execution.process.ProcessHandler;
-import com.intellij.openapi.project.Project;
-
-import java.nio.charset.Charset;
+import com.intellij.openapi.application.Application;
+import com.intellij.openapi.application.ApplicationManager;
 
 /**
  */
-public class CommandHelper {
-
-    public static ProcessHandler runCommand(Project project, String... args) throws ExecutionException {
-        GeneralCommandLine generalCommandLine = new GeneralCommandLine(args);
-        generalCommandLine.setCharset(Charset.forName("UTF-8"));
-        generalCommandLine.setWorkDirectory(project.getBasePath());
-
-        ProcessHandler processHandler = new OSProcessHandler(generalCommandLine);
-        processHandler.startNotify();
-        return processHandler;
+public class SwingHelper {
+    public static void runInSwingThread(Runnable runnable) {
+        Application application = ApplicationManager.getApplication();
+        if (application.isDispatchThread()) {
+            runnable.run();
+        } else {
+            application.invokeLater(runnable);
+        }
     }
 }

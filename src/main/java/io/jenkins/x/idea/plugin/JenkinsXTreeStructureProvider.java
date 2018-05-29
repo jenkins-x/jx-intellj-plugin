@@ -31,7 +31,7 @@ public class JenkinsXTreeStructureProvider implements TreeStructureProvider {
     public Collection<AbstractTreeNode> modify(@NotNull AbstractTreeNode parent,
                                                @NotNull Collection<AbstractTreeNode> children,
                                                ViewSettings settings) {
-        
+
         ArrayList<AbstractTreeNode> nodes = new ArrayList<AbstractTreeNode>();
         for (AbstractTreeNode child : children) {
             nodes.add(child);

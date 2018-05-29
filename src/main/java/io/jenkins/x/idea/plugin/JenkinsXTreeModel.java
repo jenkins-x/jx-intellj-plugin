@@ -63,7 +63,7 @@ public class JenkinsXTreeModel implements TreeModel {
         });
     }
 
-    protected  TreeModelEvent createTreeModelEvent(TreeItem treeItem) {
+    protected TreeModelEvent createTreeModelEvent(TreeItem treeItem) {
         TreePath path = new TreePath(treeItem.getPath());
         return new TreeModelEvent(this, path);
     }

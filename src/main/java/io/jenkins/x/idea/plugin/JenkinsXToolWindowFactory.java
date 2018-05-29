@@ -26,6 +26,7 @@ import io.jenkins.x.client.tree.BranchNode;
 import io.jenkins.x.client.tree.BuildNode;
 import io.jenkins.x.client.tree.PipelineTreeModel;
 import io.jenkins.x.client.tree.TreeItem;
+import io.jenkins.x.idea.plugin.actions.GetBuildLogsAction;
 import io.jenkins.x.idea.plugin.actions.OpenURLActionSupport;
 import io.jenkins.x.idea.plugin.actions.StartPipelineAction;
 import io.jenkins.x.idea.plugin.actions.StopPipelineAction;
@@ -133,6 +134,10 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
                 pipeline = buildNode.getSpec().getPipeline();
             }
             if (notEmpty(pipeline)) {
+                if (notEmpty(build)) {
+                    popup.add(new JMenuItem(new GetBuildLogsAction(project, pipeline, build)));
+                    popup.addSeparator();
+                }
                 popup.add(new JMenuItem(new StartPipelineAction(project, pipeline)));
                 if (notEmpty(build)) {
                     popup.add(new JMenuItem(new StopPipelineAction(project, pipeline, build)));

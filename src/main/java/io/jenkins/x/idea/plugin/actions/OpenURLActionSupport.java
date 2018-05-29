@@ -17,11 +17,9 @@
 package io.jenkins.x.idea.plugin.actions;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import static io.jenkins.x.client.util.Strings.notEmpty;
 
