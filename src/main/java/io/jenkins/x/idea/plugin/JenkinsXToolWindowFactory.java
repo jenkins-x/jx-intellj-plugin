@@ -27,6 +27,8 @@ import io.jenkins.x.client.tree.BuildNode;
 import io.jenkins.x.client.tree.PipelineTreeModel;
 import io.jenkins.x.client.tree.TreeItem;
 import io.jenkins.x.idea.plugin.actions.OpenURLActionSupport;
+import io.jenkins.x.idea.plugin.actions.StartPipelineAction;
+import io.jenkins.x.idea.plugin.actions.StopPipelineAction;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -46,7 +48,7 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
         JenkinsXTreeModel model = new JenkinsXTreeModel(PipelineTreeModel.newInstance());
         Tree tree = new Tree(model);
         tree.setCellRenderer(new JenkinsXTreeCellRenderer());
-        tree.addMouseListener(new JXTreeMouseListener(tree));
+        tree.addMouseListener(new JXTreeMouseListener(tree, project));
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content content = contentFactory.createContent(tree, "", true);
         toolWindow.getContentManager().addContent(content);
@@ -68,9 +70,11 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
 
     private static class JXTreeMouseListener extends MouseAdapter {
         private final Tree tree;
+        private Project project;
 
-        public JXTreeMouseListener(Tree tree) {
+        public JXTreeMouseListener(@NotNull Tree tree, @NotNull Project project) {
             this.tree = tree;
+            this.project = project;
         }
 
         public void mousePressed(MouseEvent e) {
@@ -108,11 +112,14 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
             String buildLogsUrl = null;
             String gitUrl = null;
             String releaseNotesUrl = null;
+            String pipeline = null;
+            String build = null;
             BuildNode buildNode = null;
             if (treeItem instanceof BuildNode) {
                 buildNode = (BuildNode) treeItem;
                 buildUrl = buildNode.getBuildUrl();
                 buildLogsUrl = buildNode.getBuildLogsUrl();
+                build = buildNode.getBuild();
             } else if (treeItem instanceof BranchNode) {
                 BranchNode branchNode = (BranchNode) treeItem;
                 List<BuildNode> children = branchNode.getChildren();
@@ -123,6 +130,14 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
             if (buildNode != null) {
                 gitUrl = buildNode.getGitUrl();
                 releaseNotesUrl = buildNode.getReleaseNotesUrl();
+                pipeline = buildNode.getSpec().getPipeline();
+            }
+            if (notEmpty(pipeline)) {
+                popup.add(new JMenuItem(new StartPipelineAction(project, pipeline)));
+                if (notEmpty(build)) {
+                    popup.add(new JMenuItem(new StopPipelineAction(project, pipeline, build)));
+                }
+                popup.addSeparator();
             }
             if (notEmpty(buildLogsUrl)) {
                 popup.add(new JMenuItem(new OpenURLActionSupport(buildLogsUrl, "Open Build Log")));
