@@ -12,7 +12,11 @@
   <depends>com.intellij.modules.lang</depends>
 
   <extensions defaultExtensionNs="com.intellij">
+    <toolWindow id="Jenkins X" secondary="true" icon="/icons/jenkinsx-13x13.png" anchor="right" factoryClass="io.jenkins.x.idea.plugin.JenkinsXToolWindowFactory"/>
+
+<!--
     <treeStructureProvider implementation="io.jenkins.x.idea.plugin.JenkinsXTreeStructureProvider"/>
+-->
   </extensions>
 
   <application-components>
@@ -24,7 +28,8 @@
   </project-components>
 
   <actions>
-    <!-- Add your actions here -->
+    <action id="io.jenkins.x.idea.plugin.actions.OpenRepoAction" class="io.jenkins.x.idea.plugin.actions.OpenRepoAction" text="Open _Repository" description="Opens the git repository in a browser" icon="/icons/octoface.png">
+    </action>
   </actions>
 
 </idea-plugin>
