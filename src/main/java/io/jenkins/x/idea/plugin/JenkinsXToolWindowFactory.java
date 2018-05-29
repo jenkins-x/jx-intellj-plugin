@@ -96,16 +96,6 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
                     }
                 }
             }
-
-/*
-            if (selRow != -1) {
-                if (e.getClickCount() == 1) {
-                    mySingleClick(selRow, path);
-                } else if (e.getClickCount() == 2) {
-                    myDoubleClick(selRow, path);
-                }
-            }
-*/
         }
 
         protected boolean addPopupMenusForItem(JPopupMenu popup, TreeItem treeItem) {

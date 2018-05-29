@@ -16,80 +16,26 @@
  */
 package io.jenkins.x.idea.plugin.actions;
 
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.ExecutionManager;
-import com.intellij.execution.executors.DefaultRunExecutor;
-import com.intellij.execution.filters.TextConsoleBuilder;
-import com.intellij.execution.filters.TextConsoleBuilderFactory;
-import com.intellij.execution.process.ProcessHandler;
-import com.intellij.execution.ui.ConsoleView;
-import com.intellij.execution.ui.RunContentDescriptor;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.ActionPlaces;
-import com.intellij.openapi.actionSystem.ActionToolbar;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
-import io.jenkins.x.idea.plugin.CommandHelper;
-import io.jenkins.x.idea.plugin.SwingHelper;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
  */
-public class GetBuildLogsAction extends AbstractAction {
-    private final Project project;
+public class GetBuildLogsAction extends ConsoleViewActionSupport {
     private final String pipeline;
     private final String build;
 
     public GetBuildLogsAction(Project project, String pipeline, String build) {
-        super("Get Build Logs");
-        this.project = project;
+        super("Get Build Logs", project);
         this.pipeline = pipeline;
         this.build = build;
     }
 
-
     @Override
     public void actionPerformed(ActionEvent event) {
-        final String title = "Log for " + pipeline + " #" + build;
-        final String[] commandArgs = {"jx", "get", "build", "log", pipeline, "--build", build};
-
-        SwingHelper.runInSwingThread(() -> {
-            TextConsoleBuilder builder = TextConsoleBuilderFactory.getInstance().createBuilder(project);
-            builder.setViewer(true);
-            ConsoleView consoleView = builder.getConsole();
-
-            JPanel panel = new JPanel(new BorderLayout());
-
-            DefaultActionGroup toolbarActions = new DefaultActionGroup();
-            ActionToolbar actionToolbar = ActionManager.getInstance().createActionToolbar(ActionPlaces.UNKNOWN, toolbarActions, false);
-            panel.add(actionToolbar.getComponent(), BorderLayout.WEST);
-            panel.add(consoleView.getComponent(), BorderLayout.CENTER);
-            actionToolbar.setTargetComponent(panel);
-
-            toolbarActions.addAll(consoleView.createConsoleActions());
-            // TODO
-            //toolbarActions.addAction(new StopPipelineAction(project, pipeline, build));
-            panel.updateUI();
-
-            ProcessHandler processHandler = null;
-            try {
-                processHandler = CommandHelper.runCommand(project, commandArgs);
-            } catch (ExecutionException e) {
-                Object name = getValue(Action.NAME);
-                System.out.println(name + " - Failed: " + e);
-                e.printStackTrace();
-            }
-
-            if (processHandler != null) {
-                consoleView.attachToProcess(processHandler);
-            }
-            RunContentDescriptor contentDescriptor = new RunContentDescriptor(consoleView, processHandler, panel, title);
-            ExecutionManager.getInstance(project).getContentManager().showRunContent(DefaultRunExecutor.getRunExecutorInstance(), contentDescriptor);
-        });
-
-
+        String title = "Log for " + pipeline + " #" + build;
+        openCommandInConsoleViewer(title, "jx", "get", "build", "log", pipeline, "--build", build);
     }
+
 }

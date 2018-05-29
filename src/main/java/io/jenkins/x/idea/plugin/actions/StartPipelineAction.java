@@ -16,13 +16,13 @@
  */
 package io.jenkins.x.idea.plugin.actions;
 
-import com.intellij.execution.ExecutionException;
 import com.intellij.openapi.project.Project;
-import io.jenkins.x.idea.plugin.CommandHelper;
+
+import java.awt.event.ActionEvent;
 
 /**
  */
-public class StartPipelineAction extends CommandActionSupport {
+public class StartPipelineAction extends ConsoleViewActionSupport {
     private final String pipeline;
 
     public StartPipelineAction(Project project, String pipeline) {
@@ -31,7 +31,8 @@ public class StartPipelineAction extends CommandActionSupport {
     }
 
     @Override
-    protected void doRunCommand() throws ExecutionException {
-        CommandHelper.runCommand(project, "jx", "start", "pipeline", pipeline);
+    public void actionPerformed(ActionEvent e) {
+        String title = "Log for " + pipeline;
+        openCommandInConsoleViewer(title, "jx", "start", "pipeline", pipeline, "--tail");
     }
 }
