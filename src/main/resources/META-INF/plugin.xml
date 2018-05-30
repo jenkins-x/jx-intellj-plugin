@@ -28,7 +28,10 @@
   </project-components>
 
   <actions>
-    <action id="io.jenkins.x.idea.plugin.actions.OpenRepoAction" class="io.jenkins.x.idea.plugin.actions.OpenRepoAction" text="Open _Repository" description="Opens the git repository in a browser" icon="/icons/octoface.png">
+    <action id="io.jenkins.x.idea.plugin.actions.OpenDevPodAction" class="io.jenkins.x.idea.plugin.actions.OpenDevPodAction" text="Open Jenkins X _DevPod" description="Opens the DevPod in a terminal" icon="/icons/jenkinsx-13x13.png">
+
+      <add-to-group group-id="ProjectViewPopupMenu" relative-to-action="LocalHistory.ShowHistory" anchor="before"/>
+
     </action>
   </actions>
 
