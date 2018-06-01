@@ -16,9 +16,11 @@
  */
 package io.jenkins.x.idea.plugin.actions;
 
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.net.URI;
 
 import static io.jenkins.x.client.util.Strings.notEmpty;
@@ -26,16 +28,16 @@ import static io.jenkins.x.idea.plugin.SwingHelper.runInSwingThread;
 
 /**
  */
-public class OpenURLActionSupport extends AbstractAction {
+public class OpenURLAnActionSupport extends AnAction {
     private final String url;
 
-    public OpenURLActionSupport(String url, String name) {
+    public OpenURLAnActionSupport(String url, String name) {
         super(name);
         this.url = url;
     }
 
-    public OpenURLActionSupport(String url, String name, Icon icon) {
-        super(name, icon);
+    public OpenURLAnActionSupport(String url, String name, String description, Icon icon) {
+        super(name, description, icon);
         this.url = url;
     }
 
@@ -44,25 +46,21 @@ public class OpenURLActionSupport extends AbstractAction {
     }
 
     @Override
-    public void actionPerformed(ActionEvent event) {
+    public void actionPerformed(AnActionEvent anActionEvent) {
         runInSwingThread(new Runnable() {
             @Override
             public void run() {
                 System.out.println("Opening URL " + url);
                 if (Desktop.isDesktopSupported() && notEmpty(url)) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                URI uri = new URI(url);
-                                Desktop.getDesktop().browse(uri);
-                            } catch (Exception e) {
-                                System.out.println("Failed: " + e);
-                                e.printStackTrace();
-                            }
-                        }
-                    }, "Browser thread: " + url).start();
+                    try {
+                        URI uri = new URI(url);
+                        Desktop.getDesktop().browse(uri);
+                    } catch (Exception e) {
+                        System.out.println("Failed: " + e);
+                        e.printStackTrace();
+                    }
                 }
+
             }
         });
     }

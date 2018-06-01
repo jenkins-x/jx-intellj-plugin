@@ -16,6 +16,11 @@
  */
 package io.jenkins.x.idea.plugin;
 
+import com.intellij.openapi.actionSystem.ActionGroup;
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.ActionPopupMenu;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
@@ -25,12 +30,15 @@ import com.intellij.ui.treeStructure.Tree;
 import io.jenkins.x.client.tree.BranchNode;
 import io.jenkins.x.client.tree.BuildNode;
 import io.jenkins.x.client.tree.PipelineTreeModel;
+import io.jenkins.x.client.tree.StageNode;
 import io.jenkins.x.client.tree.TreeItem;
 import io.jenkins.x.idea.plugin.actions.GetBuildLogsAction;
 import io.jenkins.x.idea.plugin.actions.OpenURLActionSupport;
 import io.jenkins.x.idea.plugin.actions.StartPipelineAction;
 import io.jenkins.x.idea.plugin.actions.StopPipelineAction;
+import io.jenkins.x.idea.plugin.actions.TreeItemActionGroup;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.tree.TreePath;
@@ -79,7 +87,6 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
         }
 
         public void mousePressed(MouseEvent e) {
-            int selRow = tree.getRowForLocation(e.getX(), e.getY());
             TreePath path = tree.getPathForLocation(e.getX(), e.getY());
             if (path == null) {
                 return;
@@ -90,6 +97,15 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
                 TreeItem treeItem = (TreeItem) component;
 
                 if (SwingUtilities.isRightMouseButton(e)) {
+/*
+                    ActionGroup group = new TreeItemActionGroup(treeItem);
+                    ActionPopupMenu popupMenu = ActionManager.getInstance().createActionPopupMenu("JenkinsXPopup", group);
+                    popupMenu.setTargetComponent(tree);
+                    JPopupMenu actionPopup = popupMenu.getComponent();
+                    //actionPopup.setVisible(true);
+*/
+
+
                     JPopupMenu popup = new JPopupMenu();
                     if (addPopupMenusForItem(popup, treeItem)) {
                         popup.show(tree, e.getX(), e.getY());
@@ -105,6 +121,10 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
             String releaseNotesUrl = null;
             String pipeline = null;
             String build = null;
+            String appUrl = null;
+            String prUrl = null;
+            String prName = "";
+            String updateUrl = null;
             BuildNode buildNode = null;
             if (treeItem instanceof BuildNode) {
                 buildNode = (BuildNode) treeItem;
@@ -117,6 +137,12 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
                 if (!children.isEmpty()) {
                     buildNode = children.get(0);
                 }
+            } else if (treeItem instanceof StageNode) {
+                StageNode stageNode = (StageNode) treeItem;
+                appUrl = stageNode.getApplicationURL();
+                prUrl = stageNode.getPullRequestURL();
+                prName = stageNode.getPullRequestName();
+                updateUrl = stageNode.getUpdatePipelineURL();
             }
             if (buildNode != null) {
                 gitUrl = buildNode.getGitUrl();
@@ -133,6 +159,15 @@ public class JenkinsXToolWindowFactory implements ToolWindowFactory {
                     popup.add(new JMenuItem(new StopPipelineAction(project, pipeline, build)));
                 }
                 popup.addSeparator();
+            }
+            if (notEmpty(appUrl)) {
+                popup.add(new JMenuItem(new OpenURLActionSupport(appUrl, "Open Application")));
+            }
+            if (notEmpty(prUrl)) {
+                popup.add(new JMenuItem(new OpenURLActionSupport(prUrl, "Open Pull Request" + prName)));
+            }
+            if (notEmpty(updateUrl)) {
+                popup.add(new JMenuItem(new OpenURLActionSupport(updateUrl, "Open Update Pipeline")));
             }
             if (notEmpty(buildLogsUrl)) {
                 popup.add(new JMenuItem(new OpenURLActionSupport(buildLogsUrl, "Open Build Log")));
