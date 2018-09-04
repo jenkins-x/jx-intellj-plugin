@@ -1,6 +1,6 @@
 <idea-plugin url="www.jetbrains.com">
   <id>io.jenkins.x.plugins.idea.TreeStructure</id>
-  <name>Tree Structure Provider Demo</name>
+  <name>Jenkins X</name>
   <version>1.0</version>
   <vendor email="jenkinsdev@googlegroups.com" url="https://jenkins-x.io/">Jenkins X</vendor>
 

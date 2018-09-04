@@ -35,7 +35,7 @@ public class OpenDevPodAction extends ConsoleViewAnActionSupport {
             System.out.println("Opening JX DevPod for: " + name + " at " + project.getBasePath());
 
             openCommandInConsoleViewer(project, "jx sync", "jx", "sync", "--watch-only");
-            openCommandInConsoleViewer(project, "jx devpod: " + name, "jx", "create", "devpod", "--reuse", "--sync");
+            openCommandInConsoleViewer(project, "jx devpod: " + name, "jx", "create", "devpod", "--reuse", "--sync", "--ports=8080");
         }
     }
 }
